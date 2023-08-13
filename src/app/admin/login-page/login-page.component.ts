@@ -2,6 +2,8 @@ import { FormsModule } from '@angular/forms';
 
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators} from '@angular/forms';
+import { AuthService } from 'src/app/shared/auth.service';
+import { Router } from '@angular/router';
 
 
 
@@ -16,7 +18,7 @@ import { FormGroup, FormControl, Validators} from '@angular/forms';
 export class LoginPageComponent {
 form!: FormGroup
 submitted = false
-constructor() {}
+constructor(public auth: AuthService, private router: Router) {}
 
 ngOnInit(){
   this.form = new FormGroup({
@@ -24,5 +26,28 @@ ngOnInit(){
     password: new FormControl(null, [Validators.required, Validators.minLength(6)])
   })
 }
-submit (){}
+submit() {
+  if (  this.form.invalid ) {
+    return;
+  }
+
+  this.submitted = true
+
+  const user = {
+    email: this.form.value.email,
+    password: this.form.value.password,
+  }
+
+  this.auth.login(user).subscribe( res => {
+    this.form.reset
+    this.router.navigate(['/admin','dashboard'])
+    this.submitted = false
+
+  }, () => {
+    this.submitted = false
+  }
+
+  )
+
+}
 }
