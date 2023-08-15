@@ -40,6 +40,7 @@ export class AuthService {
     this.setToken(null)
   }
   isAuthenticated() {
+    // console.log(this.token)
     return !!this.token
   }
 
