@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { map } from 'rxjs/operators';
-import { FbResponse } from './interfaces';
+import { catchError, map } from 'rxjs/operators';
+import { FbResponse, Product } from './interfaces';
+import { Observable, throwError } from 'rxjs';
 
 
 @Injectable({
@@ -35,5 +36,36 @@ export class ProductService {
         }))
       })
     )
+  }
+  // getById(id){
+  //   return this.http.get(`${environment.fbDbUrl}/products${id}.json`)
+  //   .pipe( map ( (res: Product) => {
+  //     return {
+  //       ...res,
+  //       id,
+  //       date: new Date(res.date)
+  //     }
+  //   }))
+  // }
+
+  getById(id: string): Observable<Product> {
+    return this.http.get(`${environment.fbDbUrl}/products/${id}.json`)
+      .pipe(
+        map((res: Product) => {
+          if (res) { // Check if the response is not null
+            return {
+              ...res,
+              id,
+              date: new Date(res.date)
+            };
+          } else {
+            throw new Error(`Product with ID ${id} not found.`);
+          }
+        }),
+        catchError(error => {
+          console.error(error);
+          return throwError(error);
+        })
+      );
   }
 }
