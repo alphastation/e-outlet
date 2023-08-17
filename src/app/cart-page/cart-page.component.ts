@@ -13,6 +13,7 @@ export class CartPageComponent {
   totalPrice = 0
   form : FormGroup
   submitted = false
+  added = ''
   constructor(private productServ:ProductService, private orderServ : OrderService){}
 
 
@@ -49,11 +50,16 @@ export class CartPageComponent {
     console.log(this.form)
     this.orderServ.create(order).subscribe( res => {
       this.form.reset()
+      this.added = 'Delivery is framed'
       this.submitted = false
     })
   }
   delete(product) {
-    this.totalPrice -= +product.price
-    this.cartProducts.splice(this.cartProducts.indexOf(product), 1)
+    const deleteWarning = window.confirm;
+    if (deleteWarning) {
+      this.totalPrice -= +product.price
+      this.cartProducts.splice(this.cartProducts.indexOf(product), 1)
+    }
+
   }
 }
