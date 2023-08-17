@@ -10,6 +10,7 @@ import { Observable, throwError } from 'rxjs';
   providedIn: 'root',
 })
 export class ProductService {
+  type = 'Laptop'
   constructor(private http: HttpClient) { }
 
   create(product) {
@@ -76,5 +77,8 @@ export class ProductService {
       `${environment.fbDbUrl}/products/${product.id}.json`,
       product
     );
+  }
+  setType (type) {
+    this.type = type
   }
 }

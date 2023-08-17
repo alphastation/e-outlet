@@ -1,9 +1,33 @@
+// .dashboard {
+//   display: flex;
+//   flex-wrap: wrap;
+// }
+
+// .box {
+//   width: 33.333%;
+//   margin-top: 2rem;
+// }
 .dashboard {
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between; /* Distribute items evenly along the row */
 }
 
 .box {
-  width: 33.333%;
+  width: calc(33.333% - 10px); /* Adjust as needed for spacing */
   margin-top: 2rem;
+  padding: 10px;
+  display: flex;
+  flex-direction: column; /* Align content in column direction */
+
+  /* Maintain aspect ratio for images */
+  img {
+    width: 100%;
+    height: auto;
+  }
+
+  /* Align content at the bottom */
+  .bottom-content {
+    margin-top: auto; /* Push content to the bottom */
+  }
 }

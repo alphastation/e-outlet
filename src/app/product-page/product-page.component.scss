@@ -1,19 +1,36 @@
 .product {
-  .header {
+  /* ... other styles ... */
+
+  .flex {
+    display: flex;
+    flex-wrap: wrap; /* Allow items to wrap to the next row */
+    justify-content: space-between; /* Distribute items evenly along the main axis */
+
+    .item {
+      width: calc(33.33% - 10px); /* Adjust as needed for spacing */
+      margin-bottom: 20px;
+      padding: 10px;
       display: flex;
-      justify-content: flex-end;
-      align-items: center;
+      flex-direction: column; /* Align content in column direction */
+
+      /* Maintain aspect ratio for images */
+      img {
+        width: 100%;
+        height: auto;
+      }
+
+      /* Align content at the bottom */
+      .bottom-content {
+        margin-top: auto; /* Push content to the bottom */
+      }
+    }
   }
 
-  h2 {
-      margin-bottom: .5rem;
+  /* Style for the bottom row */
+  .bottom-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(33.33%, 1fr)); /* Adjust columns as needed */
+    gap: 20px; /* Adjust gap as needed */
+    align-items: flex-end; /* Align items to the bottom */
   }
-}
-
-.flex {
-  display: flex;
-}
-
-.item {
-  width: 50%;
 }
