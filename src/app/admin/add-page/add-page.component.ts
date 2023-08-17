@@ -45,6 +45,7 @@ submitted = false;
 
     console.log(`Here goes the form:${this.form}`)
     console.log(`Here goes the product:${product}`)
+    console.log(`Here goes the price:${this.form.value.price}`)
 
     this.productServ.create(product).subscribe( res => {
       this.form.reset()

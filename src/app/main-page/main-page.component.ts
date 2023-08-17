@@ -10,9 +10,12 @@ import { Observable } from 'rxjs';
 export class MainPageComponent {
 
   products$: Observable<any[]>; // Specify the type of products$
-constructor(private productServ: ProductService
+constructor(public productServ: ProductService
   ){}
-
+// Getter method to access productServ
+// getProductServ(): ProductService {
+//   return this.productServ;
+// }
   ngOnInit(){
     this.products$ = this.productServ.getAll()
   }

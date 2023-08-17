@@ -1,6 +1,16 @@
 
-<div *ngIf="products$ | async as products" class="dashboard">
+<!-- <div *ngIf="products$ | async as products" class="dashboard">
   <app-product *ngFor="let product of products" class="box" [product]="product">
     {{product.title}}
   </app-product>
+</div> -->
+
+<div *ngIf="products$ | async as products" class="dashboard">
+  <div *ngFor="let product of products | sorting: productServ.type" class="box">
+    <app-product [product]="product">
+      <div class="bottom-content">
+        <!-- Content to align at the bottom -->
+      </div>
+    </app-product>
+  </div>
 </div>

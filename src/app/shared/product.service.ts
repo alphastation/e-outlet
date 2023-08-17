@@ -5,12 +5,14 @@ import { catchError, map } from 'rxjs/operators';
 import { FbResponse, Product } from './interfaces';
 import { Observable, throwError } from 'rxjs';
 
-
 @Injectable({
   providedIn: 'root',
 })
 export class ProductService {
-  constructor(private http: HttpClient) { }
+  type = 'Laptop';
+  cartProducts: Product[] = [];
+
+  constructor(private http: HttpClient) {}
 
   create(product) {
     return this.http.post(`${environment.fbDbUrl}/products.json`, product).pipe(
@@ -71,10 +73,16 @@ export class ProductService {
   remove(id: string): Observable<void> {
     return this.http.delete<void>(`${environment.fbDbUrl}/products/${id}.json`);
   }
-  update(product: Product):Observable<any> {
+  update(product: Product): Observable<any> {
     return this.http.patch(
       `${environment.fbDbUrl}/products/${product.id}.json`,
       product
     );
+  }
+  setType(type) {
+    this.type = type;
+  }
+  addProduct(product) {
+    this.cartProducts.push(product);
   }
 }
