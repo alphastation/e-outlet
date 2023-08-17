@@ -71,8 +71,8 @@ export class ProductService {
   remove(id: string): Observable<void> {
     return this.http.delete<void>(`${environment.fbDbUrl}/products/${id}.json`);
   }
-  update(product: Product) {
-    this.http.patch(
+  update(product: Product):Observable<any> {
+    return this.http.patch(
       `${environment.fbDbUrl}/products/${product.id}.json`,
       product
     );

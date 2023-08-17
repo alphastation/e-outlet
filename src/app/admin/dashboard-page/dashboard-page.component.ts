@@ -7,11 +7,11 @@ import { ProductService } from 'src/app/shared/product.service';
   templateUrl: './dashboard-page.component.html',
   styleUrls: ['./dashboard-page.component.scss']
 })
-export class DashboardPageComponent {
+export class DashboardPageComponent implements OnInit {
 products = []
 pSub: Subscription
 rSub: Subscription
-
+productName
 constructor (private productServ: ProductService){}
 
   ngOnInit() {
@@ -29,12 +29,21 @@ constructor (private productServ: ProductService){}
 
     }
   }
-
   remove(id) {
-    this.rSub = this.productServ.remove(id).subscribe(() => {
-      this.products = this.products.filter(product => product.id !== id);
-    });
+    const confirmDelete = window.confirm('Are you sure you want to delete this product?');
+
+    if (confirmDelete) {
+      this.rSub = this.productServ.remove(id).subscribe(() => {
+        this.products = this.products.filter(product => product.id !== id);
+      });
+    }
   }
+
+  // remove(id) {
+  //   this.rSub = this.productServ.remove(id).subscribe(() => {
+  //     this.products = this.products.filter(product => product.id !== id);
+  //   });
+  // }
 
   // remove (id) {
   //   this.rSub = this.productServ.remove(id).subscribe(() => {
