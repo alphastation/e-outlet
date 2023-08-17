@@ -23,4 +23,8 @@ constructor (private productServ: ProductService,
         return this.productServ.getById(params['id'])
       }))
   }
+  addProduct(product) {
+    this.productServ.addProduct(product)
+
+  }
 }
